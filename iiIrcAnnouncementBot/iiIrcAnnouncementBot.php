@@ -8,9 +8,9 @@ class iiIrcAnnouncementBotPlugin extends MantisPlugin
 		$this->description = 'Writes new issues to the II IRC bot pipe (<a href="http://tools.suckless.org/ii/">II</a>).'; # Short description of the plugin
 		$this->page = '';                                                # Default plugin page
 
-		$this->version = '0.1';                   # Plugin version string
-		$this->requires = array(                  # Plugin dependencies, array of basename => version pairs
-			'MantisCore' => '1.2.14',  #   Should always depend on an appropriate version of MantisBT
+		$this->version = '0.1.1';     # Plugin version string
+		$this->requires = array(      # Plugin dependencies, array of basename => version pairs
+			'MantisCore' => '1.2.14', #   Should always depend on an appropriate version of MantisBT
 		);
 
 		$this->author = "Kevin 'Cyberkef' Gaytant";    # Author/team name
@@ -52,7 +52,7 @@ class iiIrcAnnouncementBotPlugin extends MantisPlugin
 
 	function announce_issue($event_name, $bug_data_structure, $bug_id)
 	{
-		file_put_contents(plugin_config_get('path') . '/' . plugin_config_get('server') . '/' . plugin_config_get('channel') . '/in', '[New Issue @ ' . project_get_name($bug_data_structure->project_id) . '] ' . $bug_data_structure->summary . ' (by ' . print_user($bug_data_structure->reporter_id) . ') http://bugtracker.powermonitor.be/view.php?id=' . $bug_id . "\n",  FILE_APPEND);
+		file_put_contents(plugin_config_get('path') . '/' . plugin_config_get('server') . '/' . plugin_config_get('channel') . '/in', '[New Issue @ ' . project_get_name($bug_data_structure->project_id) . '] ' . $bug_data_structure->summary . ' (by ' . user_get_name($bug_data_structure->reporter_id) . ') http://bugtracker.powermonitor.be/view.php?id=' . $bug_id . "\n",  FILE_APPEND);
 	}
 
 	function announce_note($event_name, $bug_id, $bugnote_id)
